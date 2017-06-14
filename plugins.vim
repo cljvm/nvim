@@ -7,8 +7,9 @@ set runtimepath+=s:dein_dir
 if dein#load_state(s:plugin_base_dir)
     call dein#begin(s:plugin_base_dir)
 
-    " dein 自己管理自己
+    " 插件管理
     dein#add('Shougo/dein.vim')
+    dein#add('haya14busa/dein-command.vim')
     
     " 外观
     dein#add('bling/vim-airline')
