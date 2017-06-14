@@ -39,21 +39,18 @@ set mouse=
 " => User Interface
 "-------------------------------------------------
 
-" Set status line
-set laststatus=2 " Show the statusline
-set noshowmode " Hide the default mode text
-let g:airline_theme='tender'
-let g:bufferline_echo=0
-let g:bufferline_modified='[+]'
-let g:airline_powerline_fonts=1
-
 " Set airline
-let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tmuxline#enabled               = 1
+let g:airline#extensions#tabline#enabled                = 1
+let g:airline#extensions#tabline#tab_min_count          = 2
+let g:airline#extensions#bufferline#overwrite_variables = 0
+let g:airline#extensions#bufferline#enabled             = 0
 let g:airline#extensions#tabline#show_buffers = 0
-let g:airline#extensions#tabline#show_tab_nr = 0
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline_section_z = airline#section#create(["\uE0A1" . '%{line(".")}' . " \uE0A3" . '%{col(".")}'])
 let g:airline#extensions#whitespace#enabled = 0
+let g:airline_theme                                     = 'tender'
+let g:airline_powerline_fonts=1
 
 " Only have cursorline in current window and in normal window
 set wildmenu " Show list instead of just completing
@@ -330,14 +327,14 @@ xmap <C-K> <Plug>(neosnippet_expand_target)
 " -> Ale
 "let g:ale_linters = {'javascript': ['eslint']}
 let g:ale_sign_column_always=1
-let g:ale_sign_error='x'
-let g:ale_sign_warning='!'
+let g:ale_sign_error='⨉'
+let g:ale_sign_warning='⚠'
 let g:ale_statusline_format = ['E %d', 'W %d', 'ok']
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_lint_on_text_changed = 'never'
-
+let g:ale_javascript_eslint_use_global = 0
 nmap <silent> [w <Plug>(ale_previous)
 nmap <silent> ]w <Plug>(ale_next)
 highlight ALEErrorSign guibg=NONE guifg=red

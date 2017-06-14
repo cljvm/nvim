@@ -51,10 +51,10 @@ if dein#load_state(s:plugin_base_dir)
     dein#add('Shougo/neosnippet.vim')
     dein#add('Shougo/neosnippet-snippets')
 
-    " Linting
+    " 语言分析(Linting)
     dein#add('w0rp/ale')
 
-    " 编程扩展
+    " 语法高亮 
     dein#add('pangloss/vim-javascript')
     dein#add('sheerun/vim-polyglot')
     dein#add('PeterRincker/vim-argumentative')
