@@ -40,17 +40,17 @@ set mouse=
 "-------------------------------------------------
 
 " Set airline
-let g:airline#extensions#tmuxline#enabled               = 1
-let g:airline#extensions#tabline#enabled                = 1
-let g:airline#extensions#tabline#tab_min_count          = 2
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'tender'
+let g:airline#extensions#tmuxline#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#tab_min_count = 2
 let g:airline#extensions#bufferline#overwrite_variables = 0
-let g:airline#extensions#bufferline#enabled             = 0
+let g:airline#extensions#bufferline#enabled = 0
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline_section_z = airline#section#create(["\uE0A1" . '%{line(".")}' . " \uE0A3" . '%{col(".")}'])
 let g:airline#extensions#whitespace#enabled = 0
-let g:airline_theme                                     = 'tender'
-let g:airline_powerline_fonts=1
 
 " Only have cursorline in current window and in normal window
 set wildmenu " Show list instead of just completing
