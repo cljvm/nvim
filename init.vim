@@ -1,3 +1,19 @@
+func vimrc#toggle_option(opt) abort "{{{
+    exe 'setlocal' a:opt.'!'
+    exe 'setlocal' a:opt.'?'
+endf "}}}
+
+func vimrc#enable_filetype() abort "{{{
+    if exe('filetype') =~# 'OFF'
+        silent! filetype plugin indent on
+        syntax enable
+        filetype detect
+    endif
+endf "}}}
+
+func vimrc#toggle_help() abort "{{{
+   
+endf "}}}
 
 " => General
 "------------------------------------------------
@@ -6,8 +22,8 @@ filetype off
 filetype plugin indent on " Enable filetype
 " let mapleader=',' " Change the mapleader
 " let maplocalleader='\' " Change the maplocalleader
-set timeoutlen=500 " Time to wait for a command
-set ttimeoutlen=1000
+set timeoutlen=1000 " Time to wait for a command
+set ttimeoutlen=500
 
 " Source the vimrc file after saving it
 "autocmd BufWritePost $MYVIMRC source $MYVIMRC
@@ -27,9 +43,6 @@ if has('nvim')
 endif
 
 set undofile " Set undo
-
-autocmd BufWinLeave *.* silent! mkview " Make Vim save view (state) (folds, cursor, etc)
-autocmd BufWinEnter *.* silent! loadview " Make Vim load view (state) (folds, cursor, etc)
 
 " Disable mouse
 set mouse=
@@ -256,6 +269,7 @@ augroup nerd_loader
     autocmd VimEnter * silent! autocmd! FileExplorer
     autocmd BufEnter,BufNew *
                 \  if isdirectory(expand('<amatch>'))
+                     echo "nerd_loader"
                 \|   call plug#load('nerdtree')
                 \|   execute 'autocmd! nerd_loader'
                 \| endif
