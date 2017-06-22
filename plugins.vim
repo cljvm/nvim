@@ -1,4 +1,4 @@
-let s:base_dir = split(&runtimepath, ",")[0]
+let s:base_dir = expand('<sfile>:h')
 let s:plugin_base_dir = s:base_dir . '/plugins'
 let s:dein_dir = s:plugin_base_dir . '/repos/github.com/Shougo/dein.vim'
 

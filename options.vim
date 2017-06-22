@@ -12,6 +12,7 @@ func vimrc#enable_filetype() abort "{{{
 endf "}}}
 
 func vimrc#toggle_help() abort "{{{
+   
 endf "}}}
 
 " => General
@@ -37,8 +38,8 @@ set modeline " Turn on modeline
 set encoding=utf-8 " Set utf-8 encoding
 
 if has('nvim')
-    let g:python3_host_prog='/usr/bin/python3'
-    let g:python_host_prog='/usr/bin/python'
+    let g:python3_host_prog='E:/Program Files/Python/Python35/python.exe'
+    let g:python_host_prog='E:/Program Files/Python/Python27/python.exe'
 endif
 
 set undofile " Set undo
@@ -50,19 +51,6 @@ set mouse=
 "-------------------------------------------------
 " => User Interface
 "-------------------------------------------------
-
-" Set airline
-let g:airline_powerline_fonts = 1
-let g:airline_theme = 'tender'
-let g:airline#extensions#tmuxline#enabled = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#tab_min_count = 2
-let g:airline#extensions#bufferline#overwrite_variables = 0
-let g:airline#extensions#bufferline#enabled = 0
-let g:airline#extensions#tabline#show_buffers = 0
-let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline_section_z = airline#section#create(["\uE0A1" . '%{line(".")}' . " \uE0A3" . '%{col(".")}'])
-let g:airline#extensions#whitespace#enabled = 0
 
 " Only have cursorline in current window and in normal window
 set wildmenu " Show list instead of just completing
@@ -147,21 +135,6 @@ set hlsearch " Highlight search terms
 set incsearch " Find as you type search
 set gdefault " turn on g flag
 
-" incsearch & asterisk
-let g:incsearch#magic='\m'
-let g:incsearch#auto_nohlsearch=1
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-map n  <Plug>(incsearch-nohl-n)
-map N  <Plug>(incsearch-nohl-N)
-map *  <Plug>(incsearch-nohl0)<Plug>(asterisk-z*)
-map g* <Plug>(incsearch-nohl0)<Plug>(asterisk-gz*)
-map #  <Plug>(incsearch-nohl0)<Plug>(asterisk-z#)
-map g# <Plug>(incsearch-nohl0)<Plug>(asterisk-gz#)
-
-" Toggle relativenumber
-nnoremap <Leader>n :set relativenumber!<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -173,8 +146,6 @@ set foldlevelstart=0 " Start with all folds closed
 set foldcolumn=1 " Set fold column
 
 " Space to toggle and create folds.
-nnoremap <silent> <Space> @=(foldlevel('.') ? 'za' : '\<Space>')<CR>
-vnoremap <Space> zf
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -182,26 +153,9 @@ vnoremap <Space> zf
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" -> delimitMate
-let delimitMate_expand_cr=1
-let delimitMate_expand_space=1
-let delimitMate_balance_matchpairs=1
 
 " -> TComment
 " Map \<Space> to commenting
-function! IsWhiteLine()
-    if (getline('.')=~'^$')
-        exe 'TCommentBlock'
-        normal! j
-    else
-        normal! A
-        exe 'TCommentRight'
-        normal! l
-        normal! x
-    endif
-    startinsert!
-endfunction
-nnoremap <silent> <LocalLeader><Space> :call IsWhiteLine()<CR>
 
 " -> Multiple cursors
 " Called once right before you start selecting multiple cursors
@@ -230,8 +184,6 @@ function! Multiple_cursors_after()
 endfunction
 
 " -> Easy Align
-xmap ga <Plug>(EasyAlign)
-nmap ga <Plug>(EasyAlign)
 
 " -> Investigate.vim
 nnoremap K :call investigate#Investigate()<CR>
@@ -243,13 +195,6 @@ let &diffexpr='EnhancedDiff#Diff("git diff", "--diff-algorithm=patience")'
 " -> Quick-scope
 let g:qs_max_chars=80
 
-" -> Tag bar
-nnoremap <Leader>t :TagbarToggle<CR>
-let g:tagbar_autofocus=1
-"let g:tagbar_expand=1
-"let g:tagbar_foldlevel=2
-"let g:tagbar_autoshowtag=1
-
 " -> Gutentags
 if has('nvim')
     let gutentags_cache_dir=$HOME . '/AppData/Local/nvim/cache/ctags'
@@ -257,27 +202,8 @@ else
     let g:gutentags_cache_dir=$HOME . '/vimfiles/cache/ctags'
 endif
 
-" -> NERD Tree
-nnoremap <Leader>f :NERDTreeToggle<CR>
-let NERDTreeChDirMode=2
-let NERDTreeShowBookmarks=1
-let NERDTreeShowHidden=1
-let NERDTreeShowLineNumbers=1
-augroup nerd_loader
-    autocmd!
-    autocmd VimEnter * silent! autocmd! FileExplorer
-    autocmd BufEnter,BufNew *
-                \  if isdirectory(expand('<amatch>'))
-                     echo "nerd_loader"
-                \|   call plug#load('nerdtree')
-                \|   execute 'autocmd! nerd_loader'
-                \| endif
-augroup END
-
 " -> Neocomplete & Neocomplcache & Deoplete
 " Use Tab and S-Tab to select candidate
-inoremap <expr><Tab>  pumvisible() ? "\<C-N>" : "\<Tab>"
-inoremap <expr><S-Tab> pumvisible() ? "\<C-P>" : "\<S-Tab>"
 if has('nvim')
     " Use deoplete.
     let g:deoplete#enable_at_startup=1
@@ -339,19 +265,6 @@ xmap <C-K> <Plug>(neosnippet_expand_target)
 
 " -> Ale
 "let g:ale_linters = {'javascript': ['eslint']}
-let g:ale_sign_column_always=1
-let g:ale_sign_error='⨉'
-let g:ale_sign_warning='⚠'
-let g:ale_statusline_format = ['E %d', 'W %d', 'ok']
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_javascript_eslint_use_global = 0
-nmap <silent> [w <Plug>(ale_previous)
-nmap <silent> ]w <Plug>(ale_next)
-highlight ALEErrorSign guibg=NONE guifg=red
-highlight ALEWarningSign guibg=NONE guifg=yellow
 
 " -> Emmet
 " let g:user_emmet_leader_key='<C-Z>'
@@ -391,8 +304,3 @@ let g:vim_markdown_conceal=0
 "noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
 "noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
-
-" vimrc files
-for s:path in split(globpath('<sfile>:h', 'nvim/*.vim'), "\n")
-  exe 'source ' . s:path
-endfor

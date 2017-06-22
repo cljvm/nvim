@@ -18,3 +18,15 @@ nnoremap <Leader>q :%s/\s\+$//<CR>:let @/=''<CR>
 
 " Modify all the indents
 nnoremap \= gg=G
+
+noremap <C-Tab> :<C-U>tabnext<CR>
+inoremap <C-Tab> <C-O>:tabnext<CR>
+cnoremap <C-Tab> <C-C>:tabnext<CR>
+
+nnoremap <silent> <Space> @=(foldlevel('.') ? 'za' : '\<Space>')<CR>
+vnoremap <Space> zf
+
+nnoremap <Leader>n :set relativenumber!<CR>
+
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
