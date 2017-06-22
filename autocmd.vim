@@ -1,3 +1,6 @@
+autocmd BufWinLeave *.* silent! mkview " Make Vim save view (state) (folds, cursor, etc)
+autocmd BufWinEnter *.* silent! loadview " Make Vim load view (state) (folds, cursor, etc)
+
 autocmd WinLeave * set nocursorline
 autocmd WinEnter * set cursorline
 autocmd InsertEnter * set nocursorline

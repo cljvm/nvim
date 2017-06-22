@@ -1,4 +1,3 @@
-
 " => General
 "------------------------------------------------
 
@@ -22,14 +21,11 @@ set modeline " Turn on modeline
 set encoding=utf-8 " Set utf-8 encoding
 
 if has('nvim')
-    let g:python3_host_prog='E:/Program Files/Python/Python35/python.exe'
-    let g:python_host_prog='E:/Program Files/Python/Python27/python.exe'
+    let g:python3_host_prog='/usr/bin/python3'
+    let g:python_host_prog='/usr/bin/python'
 endif
 
 set undofile " Set undo
-
-autocmd BufWinLeave *.* silent! mkview " Make Vim save view (state) (folds, cursor, etc)
-autocmd BufWinEnter *.* silent! loadview " Make Vim load view (state) (folds, cursor, etc)
 
 " Disable mouse
 set mouse=
@@ -377,3 +373,9 @@ let g:vim_markdown_conceal=0
 "noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
 "noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
 "noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+
+
+" vimrc files
+for s:path in split(globpath('<sfile>:h', 'nvim/*.vim'), "\n")
+  exe 'source ' . s:path
+endfor
