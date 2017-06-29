@@ -1,6 +1,6 @@
 let s:base_dir = expand('<sfile>:h')
 "let s:plug_vim = s:base_dir . owl#separator() . 'autoload' . owl#separator() . 'plug.vim'
-let s:plugged_dir = s:base_dir . owl#separator() . 'pluged'
+let s:plugged_dir = s:base_dir . owl#separator() . 'plugged'
 
 call plug#begin(s:plugged_dir)
 " 插件管理
