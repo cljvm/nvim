@@ -1,18 +1,4 @@
-func vimrc#toggle_option(opt) abort "{{{
-    exe 'setlocal' a:opt.'!'
-    exe 'setlocal' a:opt.'?'
-endf "}}}
 
-func vimrc#enable_filetype() abort "{{{
-    if exe('filetype') =~# 'OFF'
-        silent! filetype plugin indent on
-        syntax enable
-        filetype detect
-    endif
-endf "}}}
-
-func vimrc#toggle_help() abort "{{{
-endf "}}}
 
 " => General
 "------------------------------------------------
