@@ -42,6 +42,26 @@ function! owl#copy_buffer_name() "{{{
     let @+ = bufname
 endf "}}}
 
+function! owl#plug_exists(name) abort "{{{
+    if !exists('g:plugs')
+        echoerr 'plugin manager is not vim-plug, can not find plugin "'.name
+        return 0
+    endif
+    if(!has_key(g:plugs, name))
+        echomsg 'no plugin named "'.name.'" managed by vim-plug.'
+        return 0
+    endif
+    return 1
+endfunction
+
+function! owl#plug_setting(name) abort "{{{
+    if !owl#plug_exists(name)
+        echomsg '------------------------ Skip "'.name.'" Setting ------------------------'
+        return 0
+    endif
+    return 1
+endfunction
+
 
 
 "-------------------------------------------------
