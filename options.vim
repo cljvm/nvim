@@ -20,9 +20,12 @@ set history=1000 " Increase the lines of history
 set modeline " Turn on modeline
 set encoding=utf-8 " Set utf-8 encoding
 
-if has('nvim')
+if has('win32')
     let g:python3_host_prog='E:/Program Files/Python/Python35/python.exe'
     let g:python_host_prog='E:/Program Files/Python/Python27/python.exe'
+else
+    let g:python3_host_prog='/usr/bin/python3'
+    let g:python_host_prog='usr/bin/python'
 endif
 
 set undofile " Set undo
@@ -303,7 +306,7 @@ if owl#plug_setting('neosnippet.vim')
     let g:neosnippet#enable_snipmate_compatibility = 1
     let g:neosnippet#enable_completed_snippet = 1
     let g:neosnippet#expand_word_boundary = 1
-    let g:neosnippet#snippets_directory = get('g:nvim_config_home', expand('%:p:h')) . owl#separator() . 'snippets'
+    let g:neosnippet#snippets_directory = get(g:, 'nvim_config_home', expand('%:p:h')) . owl#separator() . 'snippets'
 endif
 
 if owl#plug_setting('tagbar')
