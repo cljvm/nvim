@@ -11,12 +11,12 @@ function! owl#resolve_path(path)  abort "{{{
 endfunction "}}}
 
 function! owl#toggle_option(opt) abort "{{{
-    exe 'setlocal' a:opt.'!'
-    exe 'setlocal' a:opt.'?'
+    execute 'setlocal' a:opt.'!'
+    execute 'setlocal' a:opt.'?'
 endfunction "}}}
 
 function! owl#enable_filetype() abort "{{{
-    if exe('filetype') =~# 'OFF'
+    if execute('filetype') =~# 'OFF'
         silent! filetype plugin indent on
         syntax enable
         filetype detect
@@ -41,6 +41,26 @@ function! owl#copy_buffer_name() "{{{
     echo bufname
     let @+ = bufname
 endf "}}}
+
+function! owl#plug_exists(name) abort "{{{
+    if !exists('g:plugs')
+        echoerr 'plugin manager is not vim-plug, can not find plugin "' . a:name
+        return 0
+    endif
+    if(!has_key(g:plugs, a:name))
+        echomsg 'no plugin named "' . a:name . '" managed by vim-plug.'
+        return 0
+    endif
+    return 1
+endfunction
+
+function! owl#plug_setting(name) abort "{{{
+    if !owl#plug_exists(a:name)
+        echomsg '------------------------ Skip "' . a:name . '" Setting ------------------------'
+        return 0
+    endif
+    return 1
+endfunction
 
 
 
