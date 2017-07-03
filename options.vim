@@ -1,20 +1,3 @@
-func vimrc#toggle_option(opt) abort "{{{
-    exe 'setlocal' a:opt.'!'
-    exe 'setlocal' a:opt.'?'
-endf "}}}
-
-func vimrc#enable_filetype() abort "{{{
-    if exe('filetype') =~# 'OFF'
-        silent! filetype plugin indent on
-        syntax enable
-        filetype detect
-    endif
-endf "}}}
-
-func vimrc#toggle_help() abort "{{{
-   
-endf "}}}
-
 " => General
 "------------------------------------------------
 
@@ -101,10 +84,6 @@ syntax on " Enable syntax
 set background=dark " Set background
 set t_Co=256 " Use 256 colors
 
-" Load a colorscheme
-" colorscheme nord
-colorscheme tender
-
 " Enable italic
 let g:nord_italic_comments=1
 let &t_ZH="\e[3m"
@@ -145,17 +124,6 @@ set gdefault " turn on g flag
 set foldlevelstart=0 " Start with all folds closed
 set foldcolumn=1 " Set fold column
 
-" Space to toggle and create folds.
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Same when jumping around
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-" -> TComment
-" Map \<Space> to commenting
 
 " -> Multiple cursors
 " Called once right before you start selecting multiple cursors
@@ -183,18 +151,6 @@ function! Multiple_cursors_after()
     endif
 endfunction
 
-" -> Easy Align
-
-" -> Investigate.vim
-nnoremap K :call investigate#Investigate()<CR>
-let g:investigate_use_dash = 1
-
-" -> EnhancedDiff
-let &diffexpr='EnhancedDiff#Diff("git diff", "--diff-algorithm=patience")'
-
-" -> Quick-scope
-let g:qs_max_chars=80
-
 " -> Gutentags
 if has('nvim')
     let gutentags_cache_dir=$HOME . '/AppData/Local/nvim/cache/ctags'
@@ -202,105 +158,181 @@ else
     let g:gutentags_cache_dir=$HOME . '/vimfiles/cache/ctags'
 endif
 
-" -> Neocomplete & Neocomplcache & Deoplete
-" Use Tab and S-Tab to select candidate
-if has('nvim')
-    " Use deoplete.
-    let g:deoplete#enable_at_startup=1
-    " Enable camel case completion
-    let g:deoplete#enable_camel_case=1
-else
-    if has('lua')
-        let g:neocomplete#enable_at_startup=1
-        let g:neocomplete#data_directory=$HOME . '/vimfiles/cache/neocomplete'
-        let g:neocomplete#enable_auto_delimiter=1
-        " Use <C-E> to close popup
-        inoremap <expr><C-E> neocomplete#cancel_popup()
-        inoremap <expr><CR> delimitMate#WithinEmptyPair() ?
-                    \ "\<C-R>=delimitMate#ExpandReturn()\<CR>" :
-                    \ pumvisible() ? neocomplete#close_popup() : "\<CR>"
-        " Setting for python
-        if !exists('g:neocomplete#force_omni_input_patterns')
-            let g:neocomplete#force_omni_input_patterns={}
-        endif
-        let g:neocomplete#force_omni_input_patterns.python=
-        \ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
-        let g:neocomplete#force_omni_input_patterns.javascript='[^. \t]\.\w*'
+if owl#plug_setting('vim-airline')
+    let g:airline_powerline_fonts = 1
+    let g:airline_theme = 'tender'
+    let g:airline#extensions#tmuxline#enabled = 0
+    let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#tab_min_count = 2
+    let g:airline#extensions#bufferline#overwrite_variables = 0
+    let g:airline#extensions#bufferline#enabled = 0
+    let g:airline#extensions#tabline#show_buffers = 0
+    let g:airline#extensions#tabline#fnamemod = ':t'
+    let g:airline#extensions#whitespace#enabled = 0
+    let g:airline_section_z = airline#section#create(["\uE0A1" . '%{line(".")}' . " \uE0A3" . '%{col(".")}'])
+endif
+
+if owl#plug_setting('tender.vim')
+    colorscheme tender
+endif
+
+if owl#plug_setting('ale')
+    let g:ale_sign_column_always=1
+    let g:ale_sign_error="\uF00d"
+    let g:ale_sign_warning="\uF12A"
+    let g:ale_statusline_format = ["E %d", "W %d", "ok"]
+    let g:ale_echo_msg_error_str = "E"
+    let g:ale_echo_msg_warning_str = "W"
+    let g:ale_echo_msg_format = "[%linter%] %s [%severity%]"
+    let g:ale_lint_on_text_changed = "never"
+    let g:ale_javascript_eslint_use_global = 0
+    highlight ALEErrorSign guibg=NONE guifg=red
+    highlight ALEWarningSign guibg=NONE guifg=yellow
+    " let g:ale_linters = {'javascript': ['eslint']}
+endif
+
+if owl#plug_setting('denite.nvim')
+    if executable('rg')
+        call denite#custom#var('file_rec', 'command',
+                    \ ['rg', '--files', '--glob', '!.git'])
+        call denite#custom#var('grep', 'command', ['rg', '--threads', '1'])
+        call denite#custom#var('grep', 'recursive_opts', [])
+        call denite#custom#var('grep', 'final_opts', [])
+        call denite#custom#var('grep', 'separator', ['--'])
+        call denite#custom#var('grep', 'default_opts',
+                    \ ['--vimgrep', '--no-heading'])
     else
-        let g:neocomplcache_enable_at_startup=1
-        let g:neocomplcache_temporary_dir=$HOME . '/vimfiles/cache/neocomplcache'
-        let g:neocomplcache_enable_auto_delimiter=1
-        let g:neocomplcache_enable_fuzzy_completion=1
-        " Use <C-E> to close popup
-        inoremap <expr><C-E> neocomplcache#cancel_popup()
-        inoremap <expr><CR> delimitMate#WithinEmptyPair() ?
-                    \ "\<C-R>=delimitMate#ExpandReturn()\<CR>" :
-                    \ pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-        " Setting for python
-        if !exists('g:neocomplcache_force_omni_patterns')
-            let g:neocomplcache_force_omni_patterns={}
-        endif
-        let g:neocomplcache_force_omni_patterns.python=
-        \ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
-        let g:neocomplcache_force_omni_patterns.javascript='[^. \t]\.\w*'
+        call denite#custom#var('file_rec', 'command',
+                    \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
     endif
-    " Setting for jedi-vim
-    "autocmd FileType python setlocal omnifunc=jedi#completions
-    "let g:jedi#completions_enabled=0
-    "let g:jedi#auto_vim_configuration=0
-    "let g:jedi#smart_auto_mappings=0
-    "let g:jedi#use_tabs_not_buffers=1
-    " Setting for ternjs
-    autocmd FileType javascript setlocal omnifunc=tern#Complete
+
+    call denite#custom#source('file_old', 'matchers',
+                \ ['matcher_fuzzy', 'matcher_project_files'])
+    if has('nvim')
+        call denite#custom#source('file_rec,grep', 'matchers',
+                    \ ['matcher_cpsm'])
+    endif
+    call denite#custom#source('file_old', 'converters',
+                \ ['converter_relative_word'])
+
+    call denite#custom#map('insert', '<C-j>',
+                \ '<denite:move_to_next_line>', 'noremap')
+    call denite#custom#map('insert', '<C-k>',
+                \ '<denite:move_to_previous_line>', 'noremap')
+    call denite#custom#map('insert', "'",
+                \ '<denite:move_to_next_line>', 'noremap')
+    call denite#custom#map('normal', 'r',
+                \ '<denite:do_action:quickfix>', 'noremap')
+    call denite#custom#map('insert', ';',
+                \ 'vimrc#sticky_func()', 'expr')
+
+    call denite#custom#alias('source', 'file_rec/git', 'file_rec')
+    call denite#custom#var('file_rec/git', 'command',
+                \ ['git', 'ls-files', '-co', '--exclude-standard'])
+
+    " call denite#custom#option('default', 'prompt', '>')
+    " call denite#custom#option('default', 'short_source_names', v:true)
+    call denite#custom#option('default', {
+                \ 'prompt': '>', 'short_source_names': v:true
+                \ })
+
+    let s:menus = {}
+    let s:menus.vim = {
+                \ 'description': 'Vim',
+                \ }
+    let s:menus.vim.file_candidates = [
+                \ ['    > Edit configuation file (init.vim)', '~/.config/nvim/init.vim']
+                \ ]
+    call denite#custom#var('menu', 'menus', s:menus)
+
+    call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
+                \ [ '.git/', '.ropeproject/', '__pycache__/',
+                \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
 endif
-" Setting for tmux-complete
-"let g:tmuxcomplete#trigger=''
 
-" -> Neosnippet
-" Use <C-K> to expand or jump snippets in insert or select mode
-imap <C-K> <Plug>(neosnippet_expand_or_jump)
-smap <C-K> <Plug>(neosnippet_expand_or_jump)
-" Use <C-K> to replace TARGET within snippets in visual mode
-xmap <C-K> <Plug>(neosnippet_expand_target)
+if owl#plug_setting('deoplete.nvim')
+    let g:deoplete#enable_at_startup = 1
+    let g:deoplete#enable_camel_case=1
+    " call deoplete#custom#set('_', 'matchers', ['matcher_head'])
+    " call deoplete#custom#set('ghc', 'sorters', ['sorter_word'])
+    " call deoplete#custom#set('buffer', 'mark', '')
+    " call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
+    " call deoplete#custom#set('_', 'disabled_syntaxes', ['Comment', 'String'])
+    " call deoplete#custom#set('buffer', 'mark', '*')
 
-" -> Ale
-"let g:ale_linters = {'javascript': ['eslint']}
+    " Use auto delimiter
+    " call deoplete#custom#set('_', 'converters',
+    "       \ ['converter_auto_paren',
+    "       \  'converter_auto_delimiter', 'remove_overlap'])
+    call deoplete#custom#set('_', 'converters', [
+                \ 'converter_remove_paren',
+                \ 'converter_remove_overlap',
+                \ 'converter_truncate_abbr',
+                \ 'converter_truncate_menu',
+                \ 'converter_auto_delimiter',
+                \ ])
 
-" -> Emmet
-" let g:user_emmet_leader_key='<C-Z>'
-" let g:user_emmet_settings={'indentation':'    '}
-" let g:use_emmet_complete_tag=1
+    " call deoplete#custom#set('buffer', 'min_pattern_length', 9999)
+    " call deoplete#custom#set('clang', 'input_pattern', '\.\w*|\.->\w*|\w+::\w*')
+    " call deoplete#custom#set('clang', 'max_pattern_length', -1)
 
-" -> Matchit
-if !has('nvim')
-    " Start matchit
-    packadd! matchit
+    let g:deoplete#keyword_patterns = {}
+    let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
+    " let g:deoplete#keyword_patterns.tex = '\\?[a-zA-Z_]\w*'
+    let g:deoplete#keyword_patterns.tex = '[^\w|\s][a-zA-Z_]\w*'
+
+    let g:deoplete#omni#input_patterns = {}
+    let g:deoplete#omni#input_patterns.python = ''
+    let g:deoplete#omni#functions = {}
+
+    " inoremap <silent><expr> <C-t> deoplete#manual_complete('file')
+
+    let g:deoplete#enable_refresh_always = 1
+    let g:deoplete#enable_camel_case = 1
+    " let g:deoplete#auto_complete_delay = 50
+    " let g:deoplete#auto_complete_start_length = 3
+
+    let g:deoplete#skip_chars = ['(', ')']
+
+    " let g:deoplete#enable_profile = 1
+    " call deoplete#enable_logging('DEBUG', 'deoplete.log')
+    " call deoplete#custom#set('clang', 'debug_enabled', 1)
 endif
-" Use Tab instead of % to switch
-" nmap <Tab> %
-" vmap <Tab> %
 
-" -> Vim-polyglot
-let g:vim_markdown_conceal=0
+if owl#plug_setting('neosnippet.vim')
+    let g:neosnippet#enable_snipmate_compatibility = 1
+    let g:neosnippet#enable_completed_snippet = 1
+    let g:neosnippet#expand_word_boundary = 1
+    let g:neosnippet#snippets_directory = get('g:nvim_config_home', expand('%:p:h')) . owl#separator() . 'snippets'
+endif
 
-"set guifont=Knack_NF:h12
+if owl#plug_setting('tagbar')
+    let g:tagbar_autofocus = 1
+endif
 
-" ctrlp
-" let g:ctrlp_map = '<c-p>'
-" let g:ctrlp_cmd = 'CtrlP'
-" let g:ctrlp_max_files = 500
-" let g:ctrlp_max_depth = 20
-" let g:ctrlp_working_path_mode = 'ra'
-"let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files']
-" let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-" set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
-" set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
-" let g:ctrlp_custom_ignore = {
-    " \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-    " \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz|pyc)$'
-" \ }
-"noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
-"noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
-"noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
-"noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+if owl#plug_setting('nerdtree')
+    let NERDTreeChDirMode=2
+    let NERDTreeShowBookmarks=1
+    let NERDTreeShowHidden=1
+    let NERDTreeShowLineNumbers=1
+endif
 
+if owl#plug_setting('vim-polyglot')
+    let g:vim_markdown_conceal=0
+    let g:polyglot_disabled = ['javascript', 'rust']
+endif
+
+if owl#plug_setting('incsearch.vim')
+    let g:incsearch#magic='\m'
+    let g:incsearch#auto_nohlsearch=1
+endif
+
+if owl#plug_setting('delimitMate')
+    let delimitMate_expand_cr=1
+    let delimitMate_expand_space=1
+    let delimitMate_balance_matchpairs=1
+endif
+
+if owl#plug_setting('vim-diff-enhanced')
+    let &diffexpr='EnhancedDiff#Diff("git diff", "--diff-algorithm=patience")'
+endif

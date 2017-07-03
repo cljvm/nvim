@@ -3,10 +3,6 @@ let s:base_dir = expand('<sfile>:h')
 let s:plugged_dir = s:base_dir . owl#separator() . 'plugged'
 
 call plug#begin(s:plugged_dir)
-" 插件管理
-Plug 'Shougo/dein.vim'
-Plug 'haya14busa/dein-command.vim'
-
 " 外观
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -36,15 +32,16 @@ Plug 'tpope/vim-speeddating'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'Raimondi/delimitMate'
 Plug 'roxma/vim-paste-easy'
-Plug 'vim-asterisk'
+Plug 'haya14busa/vim-asterisk' " Improved asterisk
 Plug 'AdamWhittingham/vim-copy-filename'
-Plug 'Chiel92/vim-autoformat'
+Plug 'Chiel92/vim-autoformat', { 'do': 'npm install -g eslint'} "格式化代码（调用外部工具：eslint、js-beautify等）
+Plug 'bkad/CamelCaseMotion' " Camel case motion
 
 " 自动补全
 Plug 'shougo/deoplete.nvim'
 Plug 'zchee/deoplete-jedi'
 Plug 'rust-lang/rust.vim'
-Plug 'carlitux/deoplete-ternjs') " 需要安装tern(nodejs
+Plug 'carlitux/deoplete-ternjs' " 需要安装tern(nodejs)
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 
@@ -53,7 +50,8 @@ Plug 'w0rp/ale'
 
 " 语法高亮 
 Plug 'pangloss/vim-javascript'
-Plug 'sheerun/vim-polyglot'
+Plug 'othree/yajs.vim' " javascript syntax
+Plug 'sheerun/vim-polyglot' " 语法高亮包，支持大多数语言
 Plug 'PeterRincker/vim-argumentative'
 Plug 'Olical/vim-syntax-expand'
 
@@ -66,16 +64,16 @@ Plug 'dyng/ctrlsf.vim'
 " TODO 使用 'lotabout/skim' 代替，以支持中文
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'haya14busa/incsearch'
+Plug 'haya14busa/incsearch.vim'
 
 " Vim 扩展
 " Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-abolish'
-Plug 'neovim/python-client'
 Plug 'Shougo/denite.nvim'
 Plug 'roman/golden-ratio'
+Plug 'chrisbra/vim-diff-enhanced'
 
 " NeoVim Terminal 扩展
 Plug 'vimlab/split-term.vim'
@@ -87,6 +85,7 @@ Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
 Plug 'scrooloose/nerdtree', { 'on': [ 'NERDTreeToggle',  'NERDTreeTabsToggle'] }
 Plug 'jistr/vim-nerdtree-tabs', { 'on': [ 'NERDTreeToggle',  'NERDTreeTabsToggle'] }
 Plug 'bling/vim-bufferline'
+Plug 'ludovicchabant/vim-gutentags' " Manage tag files
 
 " 会话管理
 Plug 'tpope/vim-obsession'
