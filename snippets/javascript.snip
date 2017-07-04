@@ -1,0 +1,57 @@
+priority -50
+
+snippet pjf_page
+options head
+    /* Create at `strftime("%Y-%m-%dT%H:%M:%S")` */
+    function ${1:`expand('%:t:r') ==# '' ? 'HelloWorld' : expand('%:t:r')`}() {}
+
+    (function() {
+        var _util = ${2:STM.accProduct};
+
+        $1.prototype = {
+            initUI: function(data) {
+                ${0:TARGET}
+            },
+            initData: function(data) {
+
+            },
+            init: function(data) {
+                this.initUI(data);
+                this.initData(data);
+            }
+        };
+    })();
+
+snippet pjf_text
+abbr PJF.ui.textfield
+options head
+    new PJF.ui.textfield({
+    	dom: "${1:#:dom}",
+        datatype: "${2:#:money\|card\|mobile}",
+        hmode: "${3:0}", // 0-手写, 1-中文, 2-英文, 3-符号, 4-数字
+    	${0:TARGET}
+    });
+
+snippet pjf_button
+abbr PJF.ui.linkButton
+options head
+    new PJF.ui.linkButton({
+    	dom: "${1:#:dom}",
+        name: "${2:#:text}",
+        textColor: "rgb(20,147,214)",
+        style: "${3:main}",
+        onClick: function() {
+            ${4:#:}
+        },
+    	${0:TARGET}
+    });
+
+snippet pjf_select
+abbr PJF.ui.select
+options head
+    new PJF.ui.select({
+    	dom: "${2:#:dom}",
+    	${0:TARGET}
+    });
+
+# vim:ft=snippets:

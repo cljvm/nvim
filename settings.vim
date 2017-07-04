@@ -19,6 +19,7 @@ set hidden " Turn on hidden"
 set history=1000 " Increase the lines of history
 set modeline " Turn on modeline
 set encoding=utf-8 " Set utf-8 encoding
+set clipboard+=unnamedplus
 
 if has('win32')
     let g:python3_host_prog='E:/Program Files/Python/Python35/python.exe'
@@ -196,57 +197,32 @@ endif
 
 if owl#plug_setting('denite.nvim')
     if executable('rg')
-        call denite#custom#var('file_rec', 'command',
-                    \ ['rg', '--files', '--glob', '!.git'])
+        call denite#custom#var('file_rec', 'command', ['rg', '--files', '--glob', '!.git'])
         call denite#custom#var('grep', 'command', ['rg', '--threads', '1'])
         call denite#custom#var('grep', 'recursive_opts', [])
         call denite#custom#var('grep', 'final_opts', [])
         call denite#custom#var('grep', 'separator', ['--'])
-        call denite#custom#var('grep', 'default_opts',
-                    \ ['--vimgrep', '--no-heading'])
+        call denite#custom#var('grep', 'default_opts', ['--vimgrep', '--no-heading'])
     else
-        call denite#custom#var('file_rec', 'command',
-                    \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+        call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
     endif
 
-    call denite#custom#source('file_old', 'matchers',
-                \ ['matcher_fuzzy', 'matcher_project_files'])
+    call denite#custom#source('file_old', 'matchers', ['matcher_fuzzy', 'matcher_project_files'])
     if has('nvim')
-        call denite#custom#source('file_rec,grep', 'matchers',
-                    \ ['matcher_cpsm'])
+        call denite#custom#source('file_rec,grep', 'matchers', ['matcher_cpsm'])
     endif
-    call denite#custom#source('file_old', 'converters',
-                \ ['converter_relative_word'])
+    call denite#custom#source('file_old', 'converters', ['converter_relative_word'])
 
-    call denite#custom#map('insert', '<C-j>',
-                \ '<denite:move_to_next_line>', 'noremap')
-    call denite#custom#map('insert', '<C-k>',
-                \ '<denite:move_to_previous_line>', 'noremap')
-    call denite#custom#map('insert', "'",
-                \ '<denite:move_to_next_line>', 'noremap')
-    call denite#custom#map('normal', 'r',
-                \ '<denite:do_action:quickfix>', 'noremap')
-    call denite#custom#map('insert', ';',
-                \ 'vimrc#sticky_func()', 'expr')
 
     call denite#custom#alias('source', 'file_rec/git', 'file_rec')
-    call denite#custom#var('file_rec/git', 'command',
-                \ ['git', 'ls-files', '-co', '--exclude-standard'])
+    call denite#custom#var('file_rec/git', 'command', ['git', 'ls-files', '-co', '--exclude-standard'])
 
     " call denite#custom#option('default', 'prompt', '>')
     " call denite#custom#option('default', 'short_source_names', v:true)
     call denite#custom#option('default', {
-                \ 'prompt': '>', 'short_source_names': v:true
+                \ 'prompt': '>',
+                \ 'short_source_names': v:true,
                 \ })
-
-    let s:menus = {}
-    let s:menus.vim = {
-                \ 'description': 'Vim',
-                \ }
-    let s:menus.vim.file_candidates = [
-                \ ['    > Edit configuation file (init.vim)', '~/.config/nvim/init.vim']
-                \ ]
-    call denite#custom#var('menu', 'menus', s:menus)
 
     call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
                 \ [ '.git/', '.ropeproject/', '__pycache__/',
@@ -338,4 +314,13 @@ endif
 
 if owl#plug_setting('vim-diff-enhanced')
     let &diffexpr='EnhancedDiff#Diff("git diff", "--diff-algorithm=patience")'
+endif
+
+if owl#plug_setting('ultisnips')
+    let g:UltiSnipsExpandTrigger="<C-K>"
+    let g:UltiSnipsJumpForwardTrigger="<Tab>"
+    let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
+
+    " If you want :UltiSnipsEdit to split your window.
+    let g:UltiSnipsEditSplit="vertical"
 endif

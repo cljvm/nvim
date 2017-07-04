@@ -42,8 +42,10 @@ Plug 'shougo/deoplete.nvim'
 Plug 'zchee/deoplete-jedi'
 Plug 'rust-lang/rust.vim'
 Plug 'carlitux/deoplete-ternjs' " 需要安装tern(nodejs)
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
+" Plug 'Shougo/neosnippet.vim'
+" Plug 'Shougo/neosnippet-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets' " extra snippets
 
 " 语言分析(Linting)
 Plug 'w0rp/ale'

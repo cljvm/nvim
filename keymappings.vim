@@ -86,7 +86,7 @@ if owl#plug_setting('denite.nvim')
     nnoremap <silent><expr> tp  &filetype == 'help' ?
                 \ ":\<C-u>pop\<CR>" : ":\<C-u>Denite -mode=normal jump\<CR>"
 
-    nnoremap <silent> [dowWindow]n :<C-u>Denite dein<CR>
+    nnoremap <silent> <Leader>n :<C-u>Denite dein<CR>
     nnoremap <silent> <Leader>g :<C-u>Denite -buffer-name=search
                 \ -no-empty -mode=normal grep<CR>
     nnoremap <silent> n :<C-u>Denite -buffer-name=search
@@ -97,6 +97,11 @@ if owl#plug_setting('denite.nvim')
     nnoremap <silent> <Leader>gs :<C-u>Denite gitstatus<CR>
     nnoremap <silent> <Leader>ch
                 \ :<C-u>Denite command command_history<CR>
+
+    call denite#custom#map('insert', '<C-j>', '<denite:move_to_next_line>', 'noremap')
+    call denite#custom#map('insert', '<C-k>', '<denite:move_to_previous_line>', 'noremap')
+    call denite#custom#map('insert', "'", '<denite:move_to_next_ljne>', 'noremap')
+    call denite#custom#map('normal', 'r', '<denite:do_action:quickfix>', 'noremap')
 endif
 
 if owl#plug_setting('neosnippet.vim')
