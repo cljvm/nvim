@@ -232,10 +232,12 @@ endif
 if owl#plug_setting('deoplete.nvim')
     let g:deoplete#enable_at_startup = 1
     let g:deoplete#enable_camel_case=1
+    call deoplete#custom#set('ultisnips', 'rank', 200)
+    call deoplete#custom#set('ultisnips', 'sorters', ['sorter_word'])
     " call deoplete#custom#set('_', 'matchers', ['matcher_head'])
     " call deoplete#custom#set('ghc', 'sorters', ['sorter_word'])
     " call deoplete#custom#set('buffer', 'mark', '')
-    " call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
+    call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
     " call deoplete#custom#set('_', 'disabled_syntaxes', ['Comment', 'String'])
     " call deoplete#custom#set('buffer', 'mark', '*')
 
