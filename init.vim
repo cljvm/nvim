@@ -12,7 +12,7 @@ function! s:source_rc(...) abort
     endfor
 endfunction
 
-call s:source_rc('plugs.vim', 'options.vim', 'keymappings.vim', 'commands.vim')
+call s:source_rc('plugs.vim', 'settings.vim', 'keymappings.vim', 'commands.vim')
 
 call owl#enable_filetype()
 
