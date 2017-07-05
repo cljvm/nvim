@@ -319,7 +319,7 @@ if owl#plug_setting('vim-diff-enhanced')
 endif
 
 if owl#plug_setting('ultisnips')
-    let g:UltiSnipsExpandTrigger="<C-K>"
+    let g:UltiSnipsExpandTrigger="<C-k>"
     let g:UltiSnipsJumpForwardTrigger="<Tab>"
     let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 

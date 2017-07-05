@@ -19,9 +19,9 @@ nnoremap <silent> <Leader>q :%s/\s\+$//e<CR>:let @/=''<CR>
 " Modify all the indents
 nnoremap <Leader>= gg=G
 
-noremap <C-Tab> :<C-U>tabnext<CR>
-inoremap <C-Tab> <C-O>:tabnext<CR>
-cnoremap <C-Tab> <C-C>:tabnext<CR>
+noremap <C-Tab> :<C-u>tabnext<CR>
+inoremap <C-Tab> <C-o>:tabnext<CR>
+cnoremap <C-Tab> <C-c>:tabnext<CR>
 
 nnoremap <silent> <Space> @=(foldlevel('.') ? 'za' : '\<Space>')<CR>
 vnoremap <Space> zf
@@ -45,7 +45,7 @@ nnoremap <Leader>bcn :call owl#copy_buffer_name()<CR>
 nnoremap <Leader>by mxggyG`x<CR>
 
 " windows
-nnoremap <Leader>w <C-W>
+nnoremap <Leader>w <C-w>
 
 if owl#plug_setting('tcomment_vim')
     function! CommentAppendLine()
@@ -100,15 +100,15 @@ if owl#plug_setting('denite.nvim')
 
     call denite#custom#map('insert', '<C-j>', '<denite:move_to_next_line>', 'noremap')
     call denite#custom#map('insert', '<C-k>', '<denite:move_to_previous_line>', 'noremap')
-    call denite#custom#map('insert', "'", '<denite:move_to_next_ljne>', 'noremap')
+    " call denite#custom#map('insert', "'", '<denite:move_to_next_ljne>', 'noremap')
     call denite#custom#map('normal', 'r', '<denite:do_action:quickfix>', 'noremap')
 endif
 
 if owl#plug_setting('neosnippet.vim')
-    imap <C-K> <Plug>(neosnippet_expand_or_jump)
-    smap <C-K> <Plug>(neosnippet_expand_or_jump)
-    " Use <C-K> to replace TARGET within snippets in visual mode
-    xmap <C-K> <Plug>(neosnippet_expand_target)
+    imap <C-k> <Plug>(neosnippet_expand_or_jump)
+    smap <C-k> <Plug>(neosnippet_expand_or_jump)
+    " Use <C-k> to replace TARGET within snippets in visual mode
+    xmap <C-k> <Plug>(neosnippet_expand_target)
 endif
 
 if owl#plug_setting('tagbar')
@@ -133,9 +133,9 @@ endif
 
 if owl#plug_setting('deoplete.nvim')
     " <TAB>: completion.
-    inoremap <silent><expr> <TAB>
-                \ pumvisible() ? "\<C-n>" :
-                \ <SID>check_back_space() ? "\<TAB>" :
+    inoremap <silent><expr> <Tab>
+                \ pumvisible() ? "\<Down>" :
+                \ <SID>check_back_space() ? "\<Tab>" :
                 \ deoplete#manual_complete()
     function! s:check_back_space() abort "{{{
         let col = col('.') - 1
@@ -143,7 +143,8 @@ if owl#plug_setting('deoplete.nvim')
     endfunction"}}}
 
     " <S-TAB>: completion back.
-    inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
+    inoremap <expr><S-TAB>  pumvisible() ? "\<Up>" : "\<C-h>"
+    " inoremap <expr><C-k> pumvisible() ? deoplete#close_popup()."\<C-k>" : "\<C-k>"
 
     " <C-h>, <BS>: close popup and delete backword char.
     inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"

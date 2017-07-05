@@ -1,0 +1,49 @@
+priority -50
+
+snippet pjf_page "pjf page"
+<!-- Created by wsj on `!v strftime("%Y-%m-%dT%H:%M:%S")` -->
+<style>
+    .form_content {
+        text-align: left;
+        font-size: 0.28rem;
+        line-height: 0.55rem;
+    }
+    .form_item {margin: 0.1rem 0rem;}
+    .form_color_blue {color: #1493D6;}
+    .form_pl_70 {padding-left: 0.7rem;}
+    ${1}
+</style>
+<div>
+    <!-- 页面标题 -->
+    <div class="pjf_stm_title">${2}</div>
+    <!-- 内容区域 -->
+    <div class="pjf_stm_content form_content form_pl_70">
+	${VISUAL}$0
+    </div>
+    <!-- 底部按钮 -->
+    <div class="pjf_stm_bottom">
+	    <span id="${1:prevStep}"></span>
+	    <span id="${2:nextStep}"></span>
+    </div>
+</div>
+endsnippet
+
+snippet pjf_form_item
+<div class="${1:form_item}">
+    <label>${2}</label>
+    <${3:span} id="${4}"></$3>
+</div>
+endsnippet
+
+snippet pjf_form_input
+<div class="${1:form_item}">
+    <label>${2}</label>
+    <input id="${3}" type="text" />
+</div>
+endsnippet
+
+snippet pjf_form_val
+<span id="${1}" class="form_content"></span>
+endsnippet
+
+# vim:ft=snippets:

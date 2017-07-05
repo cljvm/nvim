@@ -1,0 +1,64 @@
+priority -50
+
+
+snippet pjf_page "Page Class"
+/* Create at `!v strftime("%Y-%m-%dT%H:%M:%S")` */
+function ${1:`!v expand('%:t:r') ==# '' ? 'HelloWorld' : expand('%:t:r')`}() {}
+
+(function() {
+    var _util = ${2:STM.accProduct};
+
+    $1.prototype = {
+        initUI: function(data) {
+            var _self = this;
+            ${VISUAL}$0
+        },
+        initData: function(data) {
+            var _self = this;
+        },
+        init: function(data) {
+            this.initUI(data);
+            this.initData(data);
+        }
+    };
+})();
+endsnippet
+
+snippet pjf_text "PJF.ui.textfield"
+new PJF.ui.textfield({
+    dom: "${1}",
+    width: "${2}"
+    datatype: "${3}${3/(c)|(mon)|(mob)|.*/(?1:ard)(?2:ey)(?3:ile)/}",
+    hmode: "${4:0}", // 0-手写, 1-中文, 2-英文, 3-符号, 4-数字
+    placeHolder: "${5}"${VISUAL}$0
+});
+
+endsnippet
+
+snippet pjf_button "PJF.ui.linkButton"
+new PJF.ui.linkButton({
+    dom: "${1}",
+    name: "${2}",
+    style: "${3:main}",
+    appendStyle:"${4:confirm}",
+    onClick: function() {
+        ${VISUAL}$0
+    }
+});
+
+endsnippet
+
+snippet pjf_select "PJF.ui.select"
+new PJF.ui.select({
+    dom: "${1}",
+    width: "${2}",
+    data: ${3:[]},
+    onChange: function() {
+        ${VISUAL}$0-手写
+    }
+});
+
+endsnippet
+
+
+# vim:ft=snippets:
