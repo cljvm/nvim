@@ -6,12 +6,33 @@ snippet pjf_page "Page Class"
 function ${1:`!v expand('%:t:r') ==# '' ? 'HelloWorld' : expand('%:t:r')`}() {}
 
 (function() {
-    var _util = ${2:STM.accProduct};
+    var _util = ${2:STM.transfer.util};
 
     $1.prototype = {
         initUI: function(data) {
             var _self = this;
+
             ${VISUAL}$0
+
+            _self.prevStep = new PJF.ui.linkButton({
+                dom: "prevStep",
+                name: "返回",
+                style: "main",
+                appendStyle:"",
+                onClick: function() {
+                    
+                }
+            });
+
+            _self.nextStep = new PJF.ui.linkButton({
+                dom: "nextStep",
+                name: "确认",
+                style: "main",
+                appendStyle:"confirm",
+                onClick: function() {
+                    
+                }
+            });
         },
         initData: function(data) {
             var _self = this;
@@ -60,5 +81,76 @@ new PJF.ui.select({
 
 endsnippet
 
+snippet pjf_cfg
+${1}: {
+    html : '../${2:accProduct}/${3}${3/(s)|(p)|.*/(?1:ignMng)(?2:ledgeMng)/}/$1.html',
+    js : [ '../$2/$3/$1.js'],
+    css : ['../$2/${4:common}/common.css'],
+    className : '$1'
+}
+endsnippet
+
+snippet pjf_templateInfo
+function ${1:`!v expand('%:t:r') ==# '' ? 'HelloWorld' : expand('%:t:r')`}(data) {
+    this.init(data);
+}
+
+(function() {
+    var _util = ${2:STM.transfer.util};
+
+    $1.prototype = {
+        tradeName: "${3}",
+        prevPage: "${4}",
+        nextPage: "${5}",
+
+        init: function(data) {
+            var _self = this;
+
+            var commInfo = [
+                {key: "客户姓名", value: _util.getAcctNm()},
+                {key: "交易账号", value: _util.formatCardNo(_util.getAcctNo())}
+            ];
+
+            var lstDt = {
+                title: _self.tradeName,
+                rows: [
+                    {key: "", value: ""},
+                    {key: "", value: ""}
+                ]
+            };
+
+            // 构造确认页面所需数据，请参考在线文档了解详情
+            var pageData = {
+                templateTitle: "请确认您的交易信息",
+                tip: "银行不会以短信、电话或告示等方式要求客户向其他账号划转资金。请您不要按照陌生短信内容或他人指示进行相关操作。",
+                hideRightRegion: true, // 是否需要呼叫平板（true 则直接提交交易）
+                commInfo: commInfo,
+                transInfo: lstDt,
+                // 确认及取消按钮回调函数
+                confirmClick: _self.confirmClick.bind(_self),
+                cancelClick: _self.cancelClick.bind(_self),
+                beforeClickHomePage: function() {return false;},
+                beforeClickSubMenu: function() {return false;}
+            };
+
+            template.loadPage("templateInfo", pageData);
+        },
+        destroy: function() {
+        },
+        fingerSuccess: function(d) {
+            var _self = this;
+            _self.authInfo = eval("("+d.AUTH_INFO+")");
+        },
+        cancelClick: function() {
+            var _self = this;
+            template.loadPage(_self.prevPage);
+        },
+        confirmClick: function() {
+            var _self = this;
+            
+        }
+    }
+})();
+endsnippet
 
 # vim:ft=snippets:

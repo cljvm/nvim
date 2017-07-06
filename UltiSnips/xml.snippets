@@ -1,0 +1,36 @@
+snippet ecp_outbound
+<service id="$1-stm" transaction-id="${1}" type="020000" request-mapping-id="$1-stm-request" response-mapping-id="p2XmlFull2Map" endpoint-id="esb-http" seek-type="remote"/>
+endsnippet
+
+snippet ecp_datatransform_item
+<${1}>${"\l![CDATA[${($1)!}]]\g"}</$1>
+endsnippet
+snippet ecp_datatransform
+<mapping id="${1}-stm-request" parser="bean2TextParser" transformer="bean2TextTransformer">
+    <template>
+	<![CDATA[<#include "message-header">
+	<ENTITY>
+	    <${2}>${"\l![CDATA[${($2)!}]]\g"}</$2>
+	</ENTITY>
+	<#include "message-footer">]]>
+    </template>
+</mapping>
+endsnippet
+
+snippet ecp_registermapping
+<service-journal id="${1}">
+    <after>
+	<mapping col-prop="idnt_adt_ind" path="'${2:0}'" />
+	<mapping col-prop="elc_sgn_ind" path="'${3:0}'" />
+	<mapping col-prop="accno_cardno1" path="\$\{${4}${4/(j)|(r)|.*/(?1:son_data)(?2:esp_msg_entity)/}}['${5}']" />
+	<mapping col-prop="accno_cardno2" path="\$\{${6}${6/(j)|(r)|.*/(?1:son_data)(?2:esp_msg_entity)/}}['${7}']" />
+	<mapping col-prop="hpn_amt" path="\$\{${8}${8/(j)|(r)|.*/(?1:son_data)(?2:esp_msg_entity)/}}['${9}']" />
+	<mapping col-prop="txn_elmt1" path="\$\{${10}${10/(j)|(r)|.*/(?1:son_data)(?2:esp_msg_entity)/}}['${11}']" />
+	<mapping col-prop="txn_elmt2" path="\$\{${12}${12/(j)|(r)|.*/(?1:son_data)(?2:esp_msg_entity)/}}['${13}']" />
+	<mapping col-prop="txn_elmt3" path="\$\{${14}${14/(j)|(r)|.*/(?1:son_data)(?2:esp_msg_entity)/}}['${15}']" />
+	<mapping col-prop="txn_elmt4" path="\$\{${16}${16/(j)|(r)|.*/(?1:son_data)(?2:esp_msg_entity)/}}['${17}']" />
+	</after>
+</service-journal>
+endsnippet
+
+# vim:ft=snippets:

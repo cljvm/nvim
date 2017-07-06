@@ -43,7 +43,23 @@ snippet pjf_form_input
 endsnippet
 
 snippet pjf_form_val
-<span id="${1}" class="form_content"></span>
+<span id="${1}" class="form_color_blue"></span>
+endsnippet
+
+snippet pjf_form_tip_style
+.form_tip {
+    font-size: ${1:.28}rem;
+    color:#107bc3;
+}
+endsnippet
+
+snippet pjf_form_tip
+<div class="pjf_stm_content_bottom">
+    <div class="form_tip">
+	温馨提示：
+	${VISUAL}$0
+    </div>
+</div>
 endsnippet
 
 # vim:ft=snippets:
