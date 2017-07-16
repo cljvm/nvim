@@ -185,7 +185,7 @@ if owl#plug_setting('vim-airline')
 endif
 
 if owl#plug_setting('vim-bufferline')
-    let g:bufferline_echo = 1
+    let g:bufferline_echo = 0
 endif
 
 if owl#plug_setting('tender.vim')
