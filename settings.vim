@@ -69,6 +69,13 @@ set linebreak " Wrap long lines at a blank
 set showbreak=↪  " Change wrap line break
 set fillchars=diff:⣿,vert:│ " Change fillchars
 
+" Show title.
+set title
+" Title length.
+set titlelen=95
+" Title string.
+let &g:titlestring="%{expand('%:p:~:.')}%(%m%r%w%)%<\(%{fnamemodify(getcwd(), ':~')}\)"
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "-------------------------------------------------
@@ -169,12 +176,16 @@ if owl#plug_setting('vim-airline')
     let g:airline#extensions#tmuxline#enabled = 0
     let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#tabline#tab_min_count = 2
-    let g:airline#extensions#bufferline#overwrite_variables = 0
-    let g:airline#extensions#bufferline#enabled = 0
+    let g:airline#extensions#bufferline#overwrite_variables = 1
+    let g:airline#extensions#bufferline#enabled = 1
     let g:airline#extensions#tabline#show_buffers = 0
     let g:airline#extensions#tabline#fnamemod = ':t'
     let g:airline#extensions#whitespace#enabled = 0
     let g:airline_section_z = airline#section#create(["\uE0A1" . '%{line(".")}' . " \uE0A3" . '%{col(".")}'])
+endif
+
+if owl#plug_setting('vim-bufferline')
+    let g:bufferline_echo = 1
 endif
 
 if owl#plug_setting('tender.vim')

@@ -3,14 +3,14 @@ snippet ecp_outbound
 endsnippet
 
 snippet ecp_datatransform_item
-<${1}>${"\l![CDATA[${($1)!}]]\g"}</$1>
+<${1}>\$\{"\l![CDATA[${($1)!}]]\g"}</$1>
 endsnippet
 snippet ecp_datatransform
 <mapping id="${1}-stm-request" parser="bean2TextParser" transformer="bean2TextTransformer">
     <template>
 	<![CDATA[<#include "message-header">
 	<ENTITY>
-	    <${2}>${"\l![CDATA[${($2)!}]]\g"}</$2>
+	    <${2}>\$\{"\l![CDATA[${($2)!}]]\g"}</$2>
 	</ENTITY>
 	<#include "message-footer">]]>
     </template>

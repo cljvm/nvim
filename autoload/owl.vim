@@ -52,7 +52,7 @@ function! owl#plug_exists(name) abort "{{{
         return 0
     endif
     return 1
-endfunction
+endfunction " }}}
 
 function! owl#plug_setting(name) abort "{{{
     if !owl#plug_exists(a:name)
@@ -60,8 +60,16 @@ function! owl#plug_setting(name) abort "{{{
         return 0
     endif
     return 1
-endfunction
+endfunction " }}}
 
+function! owl#paste_datatransform() abort " {{{
+    let rlt = ""
+    for x in split(@+, "\n")
+        let rlt = rlt.'<'.x.'>${"\l![CDATA[${('.x.')!}]]\g"}</'.x.">\n"
+    endfor
+    let @a = rlt
+    execute 'normal! "ap'
+endfunction " }}}
 
 
 "-------------------------------------------------

@@ -6,7 +6,7 @@ call plug#begin(s:plugged_dir)
 " 外观
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'jacoborus/tender.vim'
+Plug 'cljvm/tender.vim'
 Plug 'ryanoasis/vim-devicons'
 
 " Tmux
@@ -62,8 +62,7 @@ Plug 'klen/python-mode'
 Plug 'metakirby5/codi.vim'
 
 " 查找、替换
-Plug 'dyng/ctrlsf.vim'
-" TODO 使用 'lotabout/skim' 代替，以支持中文
+" Plug 'dyng/ctrlsf.vim'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'haya14busa/incsearch.vim'
