@@ -6,7 +6,8 @@ call plug#begin(s:plugged_dir)
 " 外观
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'cljvm/tender.vim'
+Plug 'arcticicestudio/nord-vim'
+" Plug 'cljvm/tender.vim'
 Plug 'ryanoasis/vim-devicons'
 
 " Tmux

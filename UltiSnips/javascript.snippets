@@ -84,7 +84,7 @@ endsnippet
 snippet pjf_cfg
 ${1}: {
     html: "../${2:accProduct}/${3}${3/(s)|(p)|.*/(?1:ignMng)(?2:ledgeMng)/}/$1.html",
-    js: [ "../$2/$3/$1.js'],
+    js: [ "../$2/${3}${3/(s)|(p)|.*/(?1:ignMng)(?2:ledgeMng)/}/$1.js"],
     css: ["../$2/${4:common}/common.css"],
     process: ["${5}", ${6:1}],
     className: "$1"
@@ -152,6 +152,50 @@ function ${1:`!v expand('%:t:r') ==# '' ? 'HelloWorld' : expand('%:t:r')`}(data)
         }
     }
 })();
+endsnippet
+
+snippet cpsJsonReq
+var jsonData = {
+    ${1}
+};
+_util.cpsJsonReq({
+    fwTranId: "${2}-stm",
+    jsonData: PJF.util.json2str(jsonData),
+    success: function(resp) {
+        ${VISUAL}$0
+    }
+});
+endsnippet
+
+snippet cpsJsonReq_fn
+${1}_req: function() {
+    var jsonData = {
+        ${2}
+    };
+    _util.cpsJsonReq({
+        fwTranId: "$1-stm",
+        jsonData: PJF.util.json2str(jsonData),
+        success: function(resp) {
+            ${VISUAL}$0
+        }
+    });
+}
+endsnippet
+
+snippet cpsSqlReq
+var jsonData = {
+    ${1}
+};
+_util.cpsSqlReq({
+    fwTranId : "${2:findObject/findList}",
+    async: false,
+    sqlId: "${3}",
+    jsonData: PJF.util.json2str(jsonData),
+    success: function(resp) {
+        var dbObj = resp.database_result;
+        ${VISUAL}$0
+    }
+});
 endsnippet
 
 # vim:ft=snippets:

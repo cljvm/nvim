@@ -172,7 +172,7 @@ endif
 
 if owl#plug_setting('vim-airline')
     let g:airline_powerline_fonts = 1
-    let g:airline_theme = 'tender'
+    let g:airline_theme = 'nord'
     let g:airline#extensions#tmuxline#enabled = 0
     let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#tabline#tab_min_count = 2
@@ -188,8 +188,8 @@ if owl#plug_setting('vim-bufferline')
     let g:bufferline_echo = 0
 endif
 
-if owl#plug_setting('tender.vim')
-    colorscheme tender
+if owl#plug_setting('nord-vim')
+    colorscheme nord
 endif
 
 if owl#plug_setting('ale')

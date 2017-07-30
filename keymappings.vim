@@ -41,6 +41,7 @@ nnoremap <leader>bl :buffers<CR> " buffer list
 nnoremap <leader>bn :bnext<CR>
 nnoremap <leader>bp :bprevious<CR>
 nnoremap <leader>bd :bdelete<CR>
+nnoremap <leader>bw :bwipeout<CR>
 nnoremap <Leader>bcn :call owl#copy_buffer_name()<CR>
 nnoremap <Leader>by mxggyG`x<CR>
 
@@ -116,7 +117,7 @@ if owl#plug_setting('tagbar')
 endif
 
 if owl#plug_setting('nerdtree')
-    nnoremap <Leader>f :NERDTreeToggle<CR>
+    nnoremap <Leader>fl :NERDTreeToggle<CR>
 endif
 
 if owl#plug_setting('incsearch.vim')
