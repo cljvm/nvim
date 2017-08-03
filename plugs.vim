@@ -57,6 +57,7 @@ Plug 'othree/yajs.vim' " javascript syntax
 Plug 'sheerun/vim-polyglot' " 语法高亮包，支持大多数语言
 Plug 'PeterRincker/vim-argumentative'
 Plug 'Olical/vim-syntax-expand'
+Plug 'ap/vim-css-color'
 
 " 编程环境
 Plug 'klen/python-mode'
