@@ -264,15 +264,15 @@ if owl#plug_setting('deoplete.nvim')
     let g:deoplete#sources = {}
     let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs']
 
-    call deoplete#custom#set('_', 'sorters', ['sorter_word'])
-    call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
-    " call deoplete#custom#set('_', 'matchers', ['matcher_head'])
-    " call deoplete#custom#set('_', 'disabled_syntaxes', ['Comment', 'String'])
+    call deoplete#custom#source('_', 'sorters', ['sorter_word'])
+    call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
+    " call deoplete#custom#source('_', 'matchers', ['matcher_head'])
+    " call deoplete#custom#source('_', 'disabled_syntaxes', ['Comment', 'String'])
     " Use auto delimiter
-    " call deoplete#custom#set('_', 'converters',
+    " call deoplete#custom#source('_', 'converters',
     "       \ ['converter_auto_paren',
     "       \  'converter_auto_delimiter', 'remove_overlap'])
-    call deoplete#custom#set('_', 'converters', [
+    call deoplete#custom#source('_', 'converters', [
                 \ 'converter_remove_paren',
                 \ 'converter_remove_overlap',
                 \ 'converter_truncate_abbr',
@@ -280,15 +280,15 @@ if owl#plug_setting('deoplete.nvim')
                 \ 'converter_auto_delimiter',
                 \ ])
 
-    call deoplete#custom#set('ultisnips', 'rank', 200)
-    call deoplete#custom#set('ultisnips', 'sorters', ['sorter_word'])
-    " call deoplete#custom#set('ghc', 'sorters', ['sorter_word'])
-    " call deoplete#custom#set('buffer', 'mark', '')
-    " call deoplete#custom#set('buffer', 'mark', '*')
-    " call deoplete#custom#set('buffer', 'min_pattern_length', 9999)
-    " call deoplete#custom#set('clang', 'input_pattern', '\.\w*|\.->\w*|\w+::\w*')
-    " call deoplete#custom#set('clang', 'max_pattern_length', -1)
-    " call deoplete#custom#set('clang', 'debug_enabled', 1)
+    call deoplete#custom#source('ultisnips', 'rank', 200)
+    call deoplete#custom#source('ultisnips', 'sorters', ['sorter_word'])
+    " call deoplete#custom#source('ghc', 'sorters', ['sorter_word'])
+    " call deoplete#custom#source('buffer', 'mark', '')
+    " call deoplete#custom#source('buffer', 'mark', '*')
+    " call deoplete#custom#source('buffer', 'min_pattern_length', 9999)
+    " call deoplete#custom#source('clang', 'input_pattern', '\.\w*|\.->\w*|\w+::\w*')
+    " call deoplete#custom#source('clang', 'max_pattern_length', -1)
+    " call deoplete#custom#source('clang', 'debug_enabled', 1)
 endif
 
 if owl#plug_setting('neosnippet.vim')
